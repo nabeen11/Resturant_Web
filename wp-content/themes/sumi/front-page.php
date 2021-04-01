@@ -30,7 +30,7 @@
     <!--/.container -->
 </section>
 <?php
-$args = array('post_type' => 'sumi_menu', 'post_per_page' => 6);
+$args = array('post_type' => 'sumi_menu', 'posts_per_page' => 3);
 $da_query = new WP_Query($args);
 if ($da_query->have_posts()) {
 
@@ -58,7 +58,7 @@ if ($da_query->have_posts()) {
                         <div class="imagebox effect1">
                             <div class="box-wrap">
                                 <div class="box-image">
-                                    <a href="#"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="images"></a>
+                                    <a href="#"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="images" width="350" height="350"></a>
                                 </div>
                                 <div class="box-content">
                                     <h5><?php the_title() ?></h5>
@@ -138,7 +138,7 @@ if ($da_query->have_posts()) {
                                                     <img src="<?php echo esc_url(get_template_directory_uri()) ?>/images/menufood/1.png" alt="client" class="img-responsive">
                                                 </a>
                                                 <div class="media-body">
-                                                    <h6><a href="#"><?php the_title() ?></a></h6>
+                                                    <h6><a href="#"><?php echo get_the_title() ?></a></h6>
                                                     <div class="dotted-bg"></div>
                                                     <span><?php echo get_post_meta(get_the_ID(), '_foodvalue', true) ?></span>
                                                 </div>
@@ -168,29 +168,7 @@ if ($da_query->have_posts()) {
                                         </li>
                                     </ul>
                                 </div>
-                                <!-- /.col-md-6" -->
-
-                                <div class="col-md-6">
-                                    <ul class="menu-fd">
-                                        <li>
-                                            <div class="media-wrap flat-hover-moveright">
-                                                <a href="#" class="pull-left">
-                                                    <img src="<?php echo esc_url(get_template_directory_uri()) ?>/images/menufood/6.png" alt="client" class="img-responsive">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h6><a href="#">CRAB WITH CURRY SOURCES</a></h6>
-                                                    <div class="dotted-bg"></div>
-                                                    <span>$19.9</span>
-                                                </div>
-                                                <ul class="menu-in">
-                                                    <li>Crab </li>
-                                                    <li>Potatoes </li>
-                                                    <li>Veggies</li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                
                                 <!-- /.col-md-6" -->
                             </div>
                             <!-- /.content-inner -->
@@ -279,7 +257,7 @@ if ($da_query->have_posts()) {
                                 <div class="projects-portfolio-wrap houses">
                                     <div class="item">
                                         <div class="portfolio-img flat-hover-images">
-                                            <a href="gallery-list.html"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="image"></a>
+                                            <a href="gallery-list.html"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="image" ></a>
                                         </div>
                                     </div>
                                     <!-- /.item -->
@@ -456,7 +434,7 @@ if ($da_query->have_posts()) {
                 <!--row-->
             </div>
             <!--container -->
-        </section>
+        </section> <br>
 
     <?php
 
