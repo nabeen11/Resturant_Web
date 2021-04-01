@@ -46,14 +46,12 @@ $tags = get_the_terms(get_the_id(), 'blogtag');
                                 <li>Tags: </li>
                                 <!-- <li><a href="#">example,</a></li> -->
                                 <?php
-                                        foreach($tags as $term){
-                                            $genre_link = get_term_link($term->term_id, 'blogtag');
-                                            // echo '<li><a href="' .$genre_link.'">'.$term->name.' </a></li>';
-                                             echo '<li><a  href="' .$genre_link. '">'.$term->name.' | </a></li>';
-                                        
-                                        }
-                                        ?>
-
+                                foreach ($tags as $term) {
+                                    $genre_link = get_term_link($term->term_id, 'blogtag');
+                                    // echo '<li><a href="' .$genre_link.'">'.$term->name.' </a></li>';
+                                    echo '<li><a  href="' . $genre_link . '">' . $term->name . ' | </a></li>';
+                                }
+                                ?>
                             </ul>
 
                             <div class="social-links">
@@ -109,8 +107,6 @@ $tags = get_the_terms(get_the_id(), 'blogtag');
                             $args = array('post_type' => 'sumi_blog', 'post__not_in' => array(get_the_ID()), 'posts_per_page' => 3);
                             $da_query = new WP_Query($args);
                             if ($da_query->have_posts()) {
-
-
                             ?>
                                 <div class="widget widget_recent_entries clearfix">
                                     <h3 class="widget-title">Recent Post</h3>
@@ -134,7 +130,7 @@ $tags = get_the_terms(get_the_id(), 'blogtag');
                                 <div class="widget widget_tag">
                                     <h3 class="widget-title">Popular Tags</h3>
                                     <div class="tag-list">
-                                        
+
                                     </div>
                                 </div><!-- /.widget_tag -->
                         </div><!-- .sidebar -->

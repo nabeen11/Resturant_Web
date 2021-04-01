@@ -58,7 +58,7 @@ if ($da_query->have_posts()) {
                         <div class="imagebox effect1">
                             <div class="box-wrap">
                                 <div class="box-image">
-                                    <a href="#"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="images" width="350" height="350"></a>
+                                    <a href="<?php the_permalink() ?>"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="images" width="350" height="350"></a>
                                 </div>
                                 <div class="box-content">
                                     <h5><?php the_title() ?></h5>
@@ -83,7 +83,6 @@ if ($da_query->have_posts()) {
         </div>
         <!--container -->
     </section>
-
     <!-- Flat Tab-->
     <section class="flat-row flat-tab-menu">
         <div class="container">
@@ -97,12 +96,12 @@ if ($da_query->have_posts()) {
                 <!--/.col-md-12-->
             </div>
             <!--/.row-->
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="flat-tabs">
                         <?php
-                        $terms = get_terms('menucategory', 'hide_empty=false'); ?>
+                        $terms = get_terms('menucategory', 'hide_empty=false');
+                        the_post() ?>
                         <ul class="menu-tab">
                             <?php foreach ($terms as $term) {   ?>
                                 <li class="active"><a href="#"><?php echo $term->name; ?></a></li>
@@ -120,67 +119,57 @@ if ($da_query->have_posts()) {
                                 while ($the_query->have_posts()) {
                                     $the_query->the_post();
                                 ?>
-                                    <!-- <li><a href="#">Dishes </a></li>
-                        <li><a href="#">Deserts </a></li>
-                        <li><a href="#">Fastfood </a></li>
-                        <li><a href="#">Coffer </a></li>
-                        <li><a href="#">Drinks </a></li> -->
                                 <?php   } ?>
                             <?php } ?>
                         </ul>
-                        <div class="content-tab">
-                            <div class="content-inner">
-                                <div class="col-md-6">
-                                    <ul class="menu-fd">
-                                        <li>
-                                            <div class="media-wrap flat-hover-moveright">
-                                                <a href="#" class="pull-left">
-                                                    <img src="<?php echo esc_url(get_template_directory_uri()) ?>/images/menufood/1.png" alt="client" class="img-responsive">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h6><a href="#"><?php echo get_the_title() ?></a></h6>
-                                                    <div class="dotted-bg"></div>
-                                                    <span><?php echo get_post_meta(get_the_ID(), '_foodvalue', true) ?></span>
-                                                </div>
-                                                <?php
-                                                $terms = get_terms('menuingredent', 'hide_empty=false');  ?>
-                                                <ul class="menu-in">
-                                                    <?php foreach ($terms as $term) {   ?>
-                                                        <li><?php echo $term->name; ?></li>
-                                                        <?php $args = array(
-                                                            'post_type' => 'sumi_menu',
-                                                            'tax_query' => array(
-                                                                array(
-                                                                    'taxonomy' => 'menuingredent',
-                                                                    'field' => 'slug',
-                                                                    'terms' => $term->slug
-                                                                )
-                                                            )
-                                                        );
-                                                        $the_query = new WP_Query($args);
-                                                        while ($the_query->have_posts()) {
-                                                            $the_query->the_post();
-                                                        ?>
-                                                        <?php } ?>
-                                                    <?php } ?>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                
-                                <!-- /.col-md-6" -->
-                            </div>
-                            <!-- /.content-inner -->
-                            <!-- 
-                        <div class="content-inner">
-                            <p>Coupling a blended linen construction with tailored style, the River Island HR Jasper Blazer will imprint a touch of dapper charm into your after-dark wardrobe. Our model is wearing a size medium blazer, and usually
-                                takes a size medium/38L shirt.</p>
+                        <?php
+                        $args = array('post_type' => 'sumi_menu');
+                        $da_query = new WP_Query($args);
+                        if ($da_query->have_posts()) {
 
-                        </div> -->
-                            <!-- /.content-inner -->
-                        </div>
-                        <!-- /.content-tab -->
+                        ?>
+                            <div class="content-tab">
+                                <div class="content-inner">
+                                    <?php while ($da_query->have_posts()) {
+                                        $da_query->the_post();
+                                        $tags = get_the_terms(get_the_id(), 'menuingredent');
+                                        ?>
+                                        <div class="col-md-6">
+                                            <ul class="menu-fd">
+                                                <li>
+                                                    <div class="media-wrap flat-hover-moveright">
+                                                        <a href="#" class="pull-left">
+                                                            <img src="<?php echo get_the_post_thumbnail_url(get_the_id())  ?>" alt="client" width="120" height="120" class="img-responsive">
+                                                        </a>
+                                                        <div class="media-body">
+                                                            <h6><a href="<?php the_permalink()  ?>"><?php the_title()  ?></a></h6>
+                                                            <div class="dotted-bg"></div>
+                                                            <span><?php echo get_post_meta(get_the_ID(), '_foodvalue', true) ?></span>
+                                                        </div>
+                                                        <ul class="menu-in">
+                                                            <?php
+                                                            foreach ($tags as $term) {
+                                                                $genre_link = get_term_link($term->term_id, 'menuingredent');
+                                                                echo '<li><a  href="' . $genre_link . '">' . $term->name . '</li>';
+                                                            }
+                                                            ?>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    <?php  } ?>
+                                    <!-- /.col-md-6" -->
+                                </div>
+                                <!-- /.content-inner -->
+                                <div class="content-inner">
+                                    <p>Coupling a blended linen construction with tailored style, the River Island HR Jasper Blazer will imprint a touch of dapper charm into your after-dark wardrobe. Our model is wearing a size medium blazer, and usually
+                                        takes a size medium/38L shirt.</p>
+                                </div>
+                                <!-- /.content-inner -->
+                            </div>
+                            <!-- /.content-tab -->
+                        <?php } ?>
                     </div>
                     <!--flat-tabs-->
                 </div>
@@ -257,7 +246,7 @@ if ($da_query->have_posts()) {
                                 <div class="projects-portfolio-wrap houses">
                                     <div class="item">
                                         <div class="portfolio-img flat-hover-images">
-                                            <a href="gallery-list.html"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="image" ></a>
+                                            <a href="gallery-list.html"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="image"></a>
                                         </div>
                                     </div>
                                     <!-- /.item -->
@@ -349,92 +338,92 @@ if ($da_query->have_posts()) {
         <!--container -->
     </section>
 
-<!-- Flat latest new -->
-<section class="flat-row flat-latest-new">
-            <div class="container">
-                <div class="row">
-                    <div class="blog-shortcode blog-slist">
+    <!-- Flat latest new -->
+    <section class="flat-row flat-latest-new">
+        <div class="container">
+            <div class="row">
+                <div class="blog-shortcode blog-slist">
 
-                        <article class="post col-md-6 clearfix">
-                            <div class="title-section style4">
-                                <h1 class="title">Latest <span>News</span> </h1>
-                                <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. </p>
-                            </div>
+                    <article class="post col-md-6 clearfix">
+                        <div class="title-section style4">
+                            <h1 class="title">Latest <span>News</span> </h1>
+                            <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. </p>
+                        </div>
 
-                            <div class="content-post">
-                                <div class="entry-meta">19 September, 2016</div>
+                        <div class="content-post">
+                            <div class="entry-meta">19 September, 2016</div>
 
-                                <h3 class="title-post"><a href="#">White chocolate & cookies</a></h3>
+                            <h3 class="title-post"><a href="#">White chocolate & cookies</a></h3>
 
-                                <div class="entry-post excerpt">
-                                    <p>Aenean condimentum commodo mattis viverra erat volutpat.</p>
-                                    <div class="read-more">
-                                        <a href="#">Read more                                          
-                                </a>
-                                    </div>
+                            <div class="entry-post excerpt">
+                                <p>Aenean condimentum commodo mattis viverra erat volutpat.</p>
+                                <div class="read-more">
+                                    <a href="#">Read more
+                                    </a>
                                 </div>
                             </div>
-                            <!-- /.content-post -->
-                        </article>
+                        </div>
+                        <!-- /.content-post -->
+                    </article>
 
-                        <article class="post col-md-6 clearfix">
-                            <div class="flat-video-fancybox">
-                                <!--  <div class="overlay"></div> -->
-                                <a class="fancybox" data-type="iframe" href="https://www.youtube.com/embed/2JJtXLUhtVs">
-                                    <img src="<?php echo esc_url(get_template_directory_uri()) ?>/images/blog/sh3.jpg" alt="images">
-                                </a>
-                            </div>
-                        </article>
-
-                        <article class="post col-md-6 clearfix">
-                            <div class="featured-post">
-                                <img src="<?php echo esc_url(get_template_directory_uri()) ?>/images/blog/sh1.jpg" alt="image">
-                            </div>
-
-                            <div class="content-post bgffff">
-                                <div class="entry-meta">19 September, 2016</div>
-
-                                <h3 class="title-post"><a href="#">You don't need a sliver</a></h3>
-
-                                <div class="entry-post excerpt">
-                                    <p>Aenean condimentum commodo mattis viverra erat volutpat.</p>
-                                    <div class="read-more">
-                                        <a href="#">Read more                                          
+                    <article class="post col-md-6 clearfix">
+                        <div class="flat-video-fancybox">
+                            <!--  <div class="overlay"></div> -->
+                            <a class="fancybox" data-type="iframe" href="https://www.youtube.com/embed/2JJtXLUhtVs">
+                                <img src="<?php echo esc_url(get_template_directory_uri()) ?>/images/blog/sh3.jpg" alt="images">
                             </a>
-                                    </div>
+                        </div>
+                    </article>
+
+                    <article class="post col-md-6 clearfix">
+                        <div class="featured-post">
+                            <img src="<?php echo esc_url(get_template_directory_uri()) ?>/images/blog/sh1.jpg" alt="image">
+                        </div>
+
+                        <div class="content-post bgffff">
+                            <div class="entry-meta">19 September, 2016</div>
+
+                            <h3 class="title-post"><a href="#">You don't need a sliver</a></h3>
+
+                            <div class="entry-post excerpt">
+                                <p>Aenean condimentum commodo mattis viverra erat volutpat.</p>
+                                <div class="read-more">
+                                    <a href="#">Read more
+                                    </a>
                                 </div>
                             </div>
-                            <!-- /.content-post -->
-                        </article>
+                        </div>
+                        <!-- /.content-post -->
+                    </article>
 
-                        <article class="post col-md-6 clearfix">
-                            <div class="featured-post">
-                                <img src="<?php echo esc_url(get_template_directory_uri()) ?>/images/blog/sh2.jpg" alt="image">
-                            </div>
+                    <article class="post col-md-6 clearfix">
+                        <div class="featured-post">
+                            <img src="<?php echo esc_url(get_template_directory_uri()) ?>/images/blog/sh2.jpg" alt="image">
+                        </div>
 
-                            <div class="content-post bgffff">
-                                <div class="entry-meta">19 September, 2016</div>
+                        <div class="content-post bgffff">
+                            <div class="entry-meta">19 September, 2016</div>
 
-                                <h3 class="title-post"><a href="#">Asian seafood salad</a></h3>
+                            <h3 class="title-post"><a href="#">Asian seafood salad</a></h3>
 
-                                <div class="entry-post excerpt">
-                                    <p>Aenean condimentum commodo mattis viverra erat volutpat.</p>
-                                    <div class="read-more">
-                                        <a href="#">Read more                                          
-                            </a>
-                                    </div>
+                            <div class="entry-post excerpt">
+                                <p>Aenean condimentum commodo mattis viverra erat volutpat.</p>
+                                <div class="read-more">
+                                    <a href="#">Read more
+                                    </a>
                                 </div>
                             </div>
-                            <!-- /.content-post -->
-                        </article>
+                        </div>
+                        <!-- /.content-post -->
+                    </article>
 
 
-                    </div>
                 </div>
-                <!--row-->
             </div>
-            <!--container -->
-        </section> <br>
+            <!--row-->
+        </div>
+        <!--container -->
+    </section> <br>
 
     <?php
 

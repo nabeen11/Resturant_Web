@@ -50,7 +50,7 @@ $terms = get_terms('menucategory', 'hide_empty=false');
                         <div class="product effect1">
                             <div class="box-wrap">
                                 <div class="box-image">
-                                    <a href="#"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="images" width="350" height="350"></a>
+                                    <a href="<?php the_permalink()?>"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="images" width="350" height="350"></a>
                                 </div>
                                 <div class="box-content">
                                     <h6><?php the_title() ?></h6>
@@ -103,9 +103,6 @@ $terms = get_terms('menucategory', 'hide_empty=false');
                         <li><a href="#">Coffer </a></li>
                         <li><a href="#">Drinks </a></li>
                     </ul>
-
-
-
                 </div>
                 <!--/.bg-tabs-->
                 <div class="flat-divider d67px"></div>
@@ -115,41 +112,30 @@ $terms = get_terms('menucategory', 'hide_empty=false');
                     <div class="content-inner">
                         <?php while (have_posts()) {
                             the_post();
+                            $tags = get_the_terms(get_the_id(), 'menuingredent');
                         ?>
                             <div class="col-md-6">
                                 <ul class="menu-fd">
                                     <li>
                                         <div class="media-wrap flat-hover-moveright">
-                                            <a href="#" class="pull-left">
+                                            <a href="<?php the_permalink()  ?>" class="pull-left">
                                                 <img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?> " alt="client" width="150" height="150" class="img-responsive">
                                             </a>
                                             <div class="media-body">
-                                                <h6><a href="#"><?php the_title() ?></a></h6>
+                                                <h6><a href="<?php the_permalink()  ?>"><?php the_title() ?></a></h6>
                                                 <div class="dotted-bg"></div>
                                                 <span><?php echo get_post_meta(get_the_ID(), '_foodvalue', true) ?></span>
                                             </div>
-                                            <?php
-                                            $terms = get_terms('menuingredent', 'hide_empty=false');  ?>
                                             <ul class="menu-in">
-                                                <?php foreach ($terms as $term) {   ?>
-                                                    <li><?php echo $term->name; ?></li>
-                                                    <?php $args = array(
-                                                        'post_type' => 'sumi_menu',
-                                                        'tax_query' => array(
-                                                            array(
-                                                                'taxonomy' => 'menuingredent',
-                                                                'field' => 'slug',
-                                                                'terms' => $term->slug
-                                                            )
-                                                        )
-                                                    );
-                                                    $the_query = new WP_Query($args);
-                                                    while ($the_query->have_posts()) {
-                                                        $the_query->the_post();
-                                                    ?>
-                                                    <?php } ?>
-                                                <?php } ?>
-                                            </ul>
+                                            <?php
+                                        foreach($tags as $term){
+                                            $genre_link = get_term_link($term->term_id, 'menuingredent');
+                                            // echo '<li><a href="' .$genre_link.'">'.$term->name.' </a></li>';
+                                             echo '<li><a  href="' .$genre_link. '">'.$term->name.'</li>';
+                                        
+                                        }
+                                        ?>
+                                                </ul>
                                         </div>
                                     </li>
                                 </ul>
