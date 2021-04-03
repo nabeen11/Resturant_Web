@@ -1,6 +1,13 @@
 <!-- Template Name: Contact
  -->
 <?php get_header(); ?>
+<?php 
+$address = myprefix_get_theme_option('address');
+$telephone = myprefix_get_theme_option('telephone');
+$email = myprefix_get_theme_option('email');
+$opening_hours = myprefix_get_theme_option('opening_hours');
+?>
+
     <!-- Page Title -->
     <div class="page-title parallax parallax1 flat_strech">
         <div class="container">
@@ -24,20 +31,18 @@
         <div class="row">
             <div class="flat-information col-sm-4">
                 <span class="fa fa-map-marker" aria-hidden="true"></span>
-                <h5 class="information-title">ADRESS</h5>
-                <p class="address">203, Envato Labs, Behind Alis Steet, Melbourne, Australia.</p>
+                <h5 class="information-title">ADDRESS</h5>
+                <p class="address"><?php echo $address ?></p>
             </div>
             <div class="flat-information email col-sm-4">
                 <span class="fa fa-envelope" aria-hidden="true"></span>
                 <h5 class="information-title">EMAIL</h5>
-                <a href="mailto:company@domain.com">company@domain.com</a><br/>
-                <a href="mailto:Contactus249@domain.com">Contactus249@domain.com</a>
+                <a href="mailto:company@domain.com"><?php echo $email ?></a><br/>
             </div>
             <div class="flat-information phone col-sm-4">
                 <span class="fa fa-phone" aria-hidden="true"></span>
                 <h5 class="information-title">HOTLINE</h5>
-                <a href="tel:+3484962216601">3484 962 216 601</a><br/>
-                <a href="tel:+0058969216601">0058969216 601 - 0084 934567601</a>
+                <a href="tel:+3484962216601"><?php echo $telephone ?></a><br/>
             </div>
         </div><!--  ./row -->
     </div><!-- ./container -->

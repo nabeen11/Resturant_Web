@@ -66,9 +66,9 @@ the_post(); ?>
                         <div class="description">
                             <p><?php the_content() ?></p>
                         </div>
-                        <!-- <form class="cart clearfix" method="post"> -->
-                        <button type="submit" class="single_booking_button">Order now</button>
-                        <!-- </form> -->
+                        <form action="<?php echo home_url('reservation') ?>" class="cart clearfix" method="post">
+                            <button type="submit" class="single_booking_button">Order now</button>
+                        </form>
 
 
                         <ul class="flat-socials">
@@ -132,40 +132,40 @@ the_post(); ?>
 
         <div class="row">
             <div class="related products clearfix">
-                <?php 
-                $args = array('post_type'=>'sumi_menu','post__not_in' => array(get_the_ID()),'posts_per_page' =>4);
+                <?php
+                $args = array('post_type' => 'sumi_menu', 'post__not_in' => array(get_the_ID()), 'posts_per_page' => 4);
                 $da_query = new WP_Query($args);
-                if ($da_query->have_posts()){
+                if ($da_query->have_posts()) {
 
-                
+
                 ?>
-                <?php while ($da_query->have_posts()) {
-                                            $da_query->the_post() ?>
-                <div class="col-sm-3 col-xs-6 style2">
-                    <div class="product effect1">
-                        <div class="box-wrap">
+                    <?php while ($da_query->have_posts()) {
+                        $da_query->the_post() ?>
+                        <div class="col-sm-3 col-xs-6 style2">
+                            <div class="product effect1">
+                                <div class="box-wrap">
 
-                            <div class="box-image">
-                                <a href="<?php the_permalink() ?>"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="images" width="350" height="350"></a>
-                            </div>
-                            <div class="box-content">
-                                <h6><?php the_title() ?></h6>
-                                <ul>
-                                    <li><?php echo get_post_meta(get_the_ID(),'_foodvalue',true) ?></li>
-                                    <li>
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
-                                    </li>
-                                </ul>
+                                    <div class="box-image">
+                                        <a href="<?php the_permalink() ?>"><img src="<?php echo get_the_post_thumbnail_url(get_the_ID()) ?>" alt="images" width="350" height="350"></a>
+                                    </div>
+                                    <div class="box-content">
+                                        <h6><?php the_title() ?></h6>
+                                        <ul>
+                                            <li><?php echo get_post_meta(get_the_ID(), '_foodvalue', true) ?></li>
+                                            <li>
+                                                <i class="fa fa-heart"></i>
+                                                <i class="fa fa-heart"></i>
+                                                <i class="fa fa-heart"></i>
+                                                <i class="fa fa-heart"></i>
+                                                <i class="fa fa-heart"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <?php }?>
-                <?php }?>
+                    <?php } ?>
+                <?php } ?>
 
 
             </div><!-- /.related products -->

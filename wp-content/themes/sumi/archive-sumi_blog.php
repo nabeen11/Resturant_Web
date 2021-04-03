@@ -137,9 +137,10 @@ the_post();
                             </div><!-- /.widget_recent_entries -->
                             <div class="widget widget_tag">
                                     <h3 class="widget-title">Popular Tags</h3>
+                                    <?php $terms = get_terms('blogtag', 'hide_empty=false'); ?>
                                     <div class="tag-list">
                                         <?php foreach ($terms as $term) {   ?>
-                                            <a class="active" href="#"><?php echo $term->name; ?>,</a>
+                                            <a class="active" href="#"><?php echo $term->name; ?> |</a>
                                             <?php $args = array(
                                                 'post_type' => 'sumi_blog',
                                                 'tax_query' => array(

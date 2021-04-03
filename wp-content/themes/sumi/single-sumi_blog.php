@@ -129,8 +129,26 @@ $tags = get_the_terms(get_the_id(), 'blogtag');
 
                                 <div class="widget widget_tag">
                                     <h3 class="widget-title">Popular Tags</h3>
+                                    <?php $terms = get_terms('blogtag', 'hide_empty=false'); ?>
                                     <div class="tag-list">
-
+                                        <?php foreach ($terms as $term) {   ?>
+                                            <a class="active" href="#"><?php echo $term->name; ?> |</a>
+                                            <?php $args = array(
+                                                'post_type' => 'sumi_blog',
+                                                'tax_query' => array(
+                                                    array(
+                                                        'taxonomy' => 'blogtag',
+                                                        'field' => 'slug',
+                                                        'terms' => $term->slug
+                                                    )
+                                                )
+                                            );
+                                            $the_query = new WP_Query($args);
+                                            while ($the_query->have_posts()) {
+                                                $the_query->the_post();
+                                            ?>
+                                            <?php   } ?>
+                                        <?php } ?>
                                     </div>
                                 </div><!-- /.widget_tag -->
                         </div><!-- .sidebar -->
